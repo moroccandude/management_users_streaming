@@ -4,7 +4,7 @@ import requests
 import time
 
 # Kafka configuration
-KAFKA_BROKER = "0.0.0.0:9092"  # Ensure this matches your Kafka container settings
+KAFKA_BROKER = "localhost:9092"  # Ensure this matches your Kafka container settings
 TOPIC_NAME = "users"
 
 # Configure the Kafka Producer

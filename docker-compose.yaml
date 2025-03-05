@@ -11,6 +11,8 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_SERVERS: zoo1:2888:3888
+    networks:
+      - global_ner
 
   kafka1:
     image:  wurstmeister/kafka
@@ -31,17 +33,20 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       
     depends_on:
-      - zoo1
+    - zoo1
+    networks:
+      - global_ner  
+  
 
-
-
-  mongodb:
-    image: mongo:latest
-    container_name: mongodb
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
+  # mongodb:
+  #   image: mongo:latest
+  #   container_name: mongodb
+  #   ports:
+  #     - "27017:27017"
+  #   volumes:
+  #     - mongo_data:/data/db
+  #   networks:
+  #     - global_ner
 
   cassandra:
     image: cassandra:latest
@@ -51,20 +56,67 @@ services:
     volumes:
       - cassandra_data:/var/lib/cassandra
 
-  pyspark:
-    build: 
-      context: /pyspark
-      dockerfile: Dockerfile
-    container_name: spark
-    hostname: spark
+  spark-master:
+    image: apache/spark:3.5.1
+    container_name: spark-master
+    hostname: spark-master
     ports:
-      - "8081:8080"  # Spark Web UI
-      - "7077:7077"  # Spark Master
+      - "8081:8080"
+      - "7077:7077"
+      - "4040:4040"
     environment:
-      SPARK_MODE: master
+      - SPARK_LOCAL_IP=0.0.0.0
+      - SPARK_MASTER_HOST=spark-master
+      - SPARK_MASTER_PORT=7077
+      # - SPARK_PUBLIC_DNS=localhost
+      - SPARK_MASTER_WEBUI_PORT=8080
+    entrypoint: 
+      - "bash"
+      - "-c"
+      - "/opt/spark/sbin/start-master.sh && tail -f /dev/null"
+    volumes:
+      # - ./data:/opt/spark/work-dir/spark-warehouse/data:rw
+       - ./spark-events:/opt/spark-events:rw
+       - ~/.ivy2:/root/.ivy2:rw
     depends_on:
       - kafka1
+    networks:
+      - global_ner 
 
+  # spark-connect:
+  #   image: apache/spark:3.5.1
+  #   container_name: spark-connect
+  #   hostname: spark-connect
+  #   ports:
+  #     - "4040:4040"
+  #     - "15002:15002"
+  #   depends_on:
+  #     - spark-master
+  #   volumes:
+  #     - ./jars/spark-connect_2.12-3.5.1.jar:/opt/spark/jars/spark-connect_2.12-3.5.1.jar
+  #     - ./data:/opt/spark/work-dir/spark-warehouse/data:rw
+  #   command: 
+  #     - "bash"
+  #     - "-c"
+  #     - "/opt/spark/sbin/start-connect-server.sh --jars /opt/spark/jars/spark-connect_2.12-3.5.1.jar && tail -f /dev/null"
+
+  spark-worker:
+    image: apache/spark:3.5.1
+    container_name: spark-worker
+    hostname: spark-worker
+    depends_on:
+      - spark-master
+    entrypoint:
+      - "bash" 
+      - "-c"
+      - "/opt/spark/sbin/start-worker.sh spark://spark-master:7077 && tail -f /dev/null"
+   
+    volumes:
+      - ./data:/opt/spark/work-dir/spark-warehouse/data:rw
+    environment:
+      - SPARK_WORKER_CORES=4
+      - SPARK_WORKER_MEMORY=4g
+      - SPARK_LOCAL_IP=0.0.0.0
   producer:
     build: ./producer
     container_name: producer
@@ -104,3 +156,6 @@ services:
 volumes:
   mongo_data:
   cassandra_data:
+networks:
+  global_ner:
+      driver: bridge
