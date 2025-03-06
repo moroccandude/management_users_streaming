@@ -38,15 +38,15 @@ services:
       - global_ner  
   
 
-  # mongodb:
-  #   image: mongo:latest
-  #   container_name: mongodb
-  #   ports:
-  #     - "27017:27017"
-  #   volumes:
-  #     - mongo_data:/data/db
-  #   networks:
-  #     - global_ner
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - global_ner
 
   cassandra:
     image: cassandra:latest
@@ -55,7 +55,8 @@ services:
       - "9042:9042"
     volumes:
       - cassandra_data:/var/lib/cassandra
-
+    networks:
+      - global_ner
   spark-master:
     image: apache/spark:3.5.1
     container_name: spark-master

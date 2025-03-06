@@ -45,8 +45,8 @@ def produce_messages():
     if users_data:
         for user in users_data.get("results", []):
             user_json = json.dumps(user)
-            print(f"{user_json} \n_______________________________" )
-            producer.produce(TOPIC_NAME, key=str(user["login"]["uuid"]), value=user_json, callback=delivery_report)
+            print(f"{str(user["login"]["uuid"])}\n{user_json} \n_______________________________" )
+            producer.produce(TOPIC_NAME, key=str(user["login"]["uuid"]+user["email"]), value=user_json, callback=delivery_report)
             time.sleep(0.6)  # Small delay to simulate a real-time stream
             producer.flush()  # Ensure all messages are sent before exiting
 
