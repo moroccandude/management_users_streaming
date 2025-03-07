@@ -1,0 +1,51 @@
+# Spark Configuration
+spark:
+  app_name: "KafkaUserStreamProcessor"
+  packages:
+    - "org.apache.spark:spark-sql-kafka-0-10_2.12:3.4.0"
+    - "org.mongodb.spark:mongo-spark-connector_2.12:10.4.1"
+    - "com.datastax.spark:spark-cassandra-connector_2.12:3.2.0"
+  conf:
+    spark.executor.memory: "2g"
+    spark.driver.memory: "1g"
+    spark.executor.cores: "2"
+    spark.default.parallelism: "4"
+    spark.sql.shuffle.partitions: "4"
+
+# Kafka Configuration
+kafka:
+  bootstrap_servers: "localhost:9092"
+  topic: "users"
+  starting_offsets: "earliest"
+
+# MongoDB Configuration
+mongodb:
+  uri: "mongodb://user:admin@127.0.0.1:27017/admin?authSource=admin"
+  database: "admin"
+  collections:
+    raw: "users"
+    aggregated: "aggregated_data"
+
+# Cassandra Configuration
+# Cassandra Configuration
+cassandra:
+  host: "127.0.0.1"
+  port: "9042"
+  keyspace: "random_user_keyspace"
+  table: "user_detail"
+  tables:
+    detail: "user_detail"
+    aggregated: "user_by_country"
+
+# Checkpoint Paths
+checkpoints:
+  base_dir: "/tmp/spark_checkpoints"
+  paths:
+    mongodb_raw: "/tmp/spark_checkpoint_parsed"
+    mongodb_aggregated: "/tmp/spark_checkpoint_aggregated"
+    cassandra_detail: "/tmp/spark_checkpoint_cassandra_detail"
+    cassandra_aggregated: "/tmp/spark_checkpoint_cassandra_aggregated"
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "./pyspark/logs/spark_streaming.log"

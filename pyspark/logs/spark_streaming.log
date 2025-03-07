@@ -1,0 +1,901 @@
+2025-03-07 15:06:06,819 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 15:06:06,819 - __main__ - INFO - Initializing Spark session
+2025-03-07 15:06:15,505 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 15:06:16,381 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 15:06:16,697 - __main__ - INFO - Aggregating user data by country
+2025-03-07 15:06:16,802 - __main__ - INFO - Writing data to MongoDB collection: users
+2025-03-07 15:06:17,152 - __main__ - INFO - Raw data streaming to MongoDB started
+2025-03-07 15:06:17,152 - __main__ - INFO - Writing data to MongoDB collection: aggregated_data
+2025-03-07 15:06:17,206 - __main__ - INFO - Aggregated data streaming to MongoDB started
+2025-03-07 15:06:17,206 - __main__ - INFO - Writing detailed user data to Cassandra table: random_user_keyspace.user_detail
+2025-03-07 15:06:21,478 - __main__ - INFO - Detailed data streaming to Cassandra started
+2025-03-07 15:06:21,479 - __main__ - INFO - Writing data to Cassandra table: random_user_keyspace.None
+2025-03-07 15:06:21,541 - __main__ - ERROR - Streaming application failed: An error occurred while calling o143.start.
+: java.lang.NullPointerException: null value for table
+	at org.apache.spark.SparkConf.set(SparkConf.scala:91)
+	at org.apache.spark.SparkConf.set(SparkConf.scala:83)
+	at org.apache.spark.SparkConf.$anonfun$setAll$1(SparkConf.scala:172)
+	at scala.collection.immutable.Map$Map3.foreach(Map.scala:376)
+	at org.apache.spark.SparkConf.setAll(SparkConf.scala:172)
+	at com.datastax.spark.connector.datasource.CassandraSourceUtil$.consolidateConfs(CassandraSourceUtil.scala:102)
+	at org.apache.spark.sql.cassandra.DefaultSource.getTable(DefaultSource.scala:60)
+	at org.apache.spark.sql.cassandra.DefaultSource.inferSchema(DefaultSource.scala:72)
+	at org.apache.spark.sql.execution.datasources.v2.DataSourceV2Utils$.getTableFromProvider(DataSourceV2Utils.scala:90)
+	at org.apache.spark.sql.streaming.DataStreamWriter.startInternal(DataStreamWriter.scala:399)
+	at org.apache.spark.sql.streaming.DataStreamWriter.start(DataStreamWriter.scala:251)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+	at py4j.Gateway.invoke(Gateway.java:282)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 286, in main
+    agg_cassandra_query = write_to_cassandra(
+                          ^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 186, in write_to_cassandra
+    .start()
+     ^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/streaming/readwriter.py", line 1527, in start
+    return self._sq(self._jwrite.start())
+                    ^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 179, in deco
+    return f(*a, **kw)
+           ^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/protocol.py", line 326, in get_return_value
+    raise Py4JJavaError(
+py4j.protocol.Py4JJavaError: An error occurred while calling o143.start.
+: java.lang.NullPointerException: null value for table
+	at org.apache.spark.SparkConf.set(SparkConf.scala:91)
+	at org.apache.spark.SparkConf.set(SparkConf.scala:83)
+	at org.apache.spark.SparkConf.$anonfun$setAll$1(SparkConf.scala:172)
+	at scala.collection.immutable.Map$Map3.foreach(Map.scala:376)
+	at org.apache.spark.SparkConf.setAll(SparkConf.scala:172)
+	at com.datastax.spark.connector.datasource.CassandraSourceUtil$.consolidateConfs(CassandraSourceUtil.scala:102)
+	at org.apache.spark.sql.cassandra.DefaultSource.getTable(DefaultSource.scala:60)
+	at org.apache.spark.sql.cassandra.DefaultSource.inferSchema(DefaultSource.scala:72)
+	at org.apache.spark.sql.execution.datasources.v2.DataSourceV2Utils$.getTableFromProvider(DataSourceV2Utils.scala:90)
+	at org.apache.spark.sql.streaming.DataStreamWriter.startInternal(DataStreamWriter.scala:399)
+	at org.apache.spark.sql.streaming.DataStreamWriter.start(DataStreamWriter.scala:251)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+	at py4j.Gateway.invoke(Gateway.java:282)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+
+2025-03-07 15:06:21,961 - __main__ - INFO - Spark session stopped
+2025-03-07 15:06:21,962 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 15:10:19,787 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 15:10:19,787 - __main__ - INFO - Initializing Spark session
+2025-03-07 15:10:29,412 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 15:10:30,413 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 15:10:30,874 - __main__ - INFO - Aggregating user data by country
+2025-03-07 15:10:30,997 - __main__ - INFO - Writing data to MongoDB collection: users
+2025-03-07 15:10:31,296 - __main__ - INFO - Raw data streaming to MongoDB started
+2025-03-07 15:10:31,296 - __main__ - INFO - Writing data to MongoDB collection: aggregated_data
+2025-03-07 15:10:31,337 - __main__ - INFO - Aggregated data streaming to MongoDB started
+2025-03-07 15:10:31,337 - __main__ - INFO - Writing data to Cassandra table: random_user_keyspace.None
+2025-03-07 15:10:31,490 - __main__ - ERROR - Streaming application failed: An error occurred while calling o100.start.
+: java.lang.NullPointerException: null value for table
+	at org.apache.spark.SparkConf.set(SparkConf.scala:91)
+	at org.apache.spark.SparkConf.set(SparkConf.scala:83)
+	at org.apache.spark.SparkConf.$anonfun$setAll$1(SparkConf.scala:172)
+	at scala.collection.immutable.Map$Map3.foreach(Map.scala:376)
+	at org.apache.spark.SparkConf.setAll(SparkConf.scala:172)
+	at com.datastax.spark.connector.datasource.CassandraSourceUtil$.consolidateConfs(CassandraSourceUtil.scala:102)
+	at org.apache.spark.sql.cassandra.DefaultSource.getTable(DefaultSource.scala:60)
+	at org.apache.spark.sql.cassandra.DefaultSource.inferSchema(DefaultSource.scala:72)
+	at org.apache.spark.sql.execution.datasources.v2.DataSourceV2Utils$.getTableFromProvider(DataSourceV2Utils.scala:90)
+	at org.apache.spark.sql.streaming.DataStreamWriter.startInternal(DataStreamWriter.scala:399)
+	at org.apache.spark.sql.streaming.DataStreamWriter.start(DataStreamWriter.scala:251)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+	at py4j.Gateway.invoke(Gateway.java:282)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 286, in main
+    agg_cassandra_query = write_to_cassandra(
+                          ^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 186, in write_to_cassandra
+    .start()
+     ^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/streaming/readwriter.py", line 1527, in start
+    return self._sq(self._jwrite.start())
+                    ^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 179, in deco
+    return f(*a, **kw)
+           ^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/protocol.py", line 326, in get_return_value
+    raise Py4JJavaError(
+py4j.protocol.Py4JJavaError: An error occurred while calling o100.start.
+: java.lang.NullPointerException: null value for table
+	at org.apache.spark.SparkConf.set(SparkConf.scala:91)
+	at org.apache.spark.SparkConf.set(SparkConf.scala:83)
+	at org.apache.spark.SparkConf.$anonfun$setAll$1(SparkConf.scala:172)
+	at scala.collection.immutable.Map$Map3.foreach(Map.scala:376)
+	at org.apache.spark.SparkConf.setAll(SparkConf.scala:172)
+	at com.datastax.spark.connector.datasource.CassandraSourceUtil$.consolidateConfs(CassandraSourceUtil.scala:102)
+	at org.apache.spark.sql.cassandra.DefaultSource.getTable(DefaultSource.scala:60)
+	at org.apache.spark.sql.cassandra.DefaultSource.inferSchema(DefaultSource.scala:72)
+	at org.apache.spark.sql.execution.datasources.v2.DataSourceV2Utils$.getTableFromProvider(DataSourceV2Utils.scala:90)
+	at org.apache.spark.sql.streaming.DataStreamWriter.startInternal(DataStreamWriter.scala:399)
+	at org.apache.spark.sql.streaming.DataStreamWriter.start(DataStreamWriter.scala:251)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+	at py4j.Gateway.invoke(Gateway.java:282)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+
+2025-03-07 15:10:31,990 - __main__ - INFO - Spark session stopped
+2025-03-07 15:10:31,991 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 15:14:08,446 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 15:14:08,448 - __main__ - INFO - Initializing Spark session
+2025-03-07 15:14:17,973 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 15:14:18,695 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 15:14:19,040 - __main__ - INFO - Aggregating user data by country
+2025-03-07 15:14:19,161 - __main__ - INFO - Writing data to MongoDB collection: users
+2025-03-07 15:14:19,462 - __main__ - INFO - Raw data streaming to MongoDB started
+2025-03-07 15:14:19,462 - __main__ - INFO - Writing data to MongoDB collection: aggregated_data
+2025-03-07 15:14:19,497 - __main__ - INFO - Aggregated data streaming to MongoDB started
+2025-03-07 15:14:19,497 - __main__ - INFO - Writing data to Cassandra table: random_user_keyspace.user_detail
+2025-03-07 15:14:23,245 - __main__ - INFO - Aggregated data streaming to Cassandra started
+2025-03-07 15:14:23,915 - __main__ - ERROR - Streaming application failed: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = 73b1f9ab-9dae-4dc7-bb65-77733303492e] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 295, in main
+    spark.streams.awaitAnyTermination()
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/streaming/query.py", line 596, in awaitAnyTermination
+    return self._jsqm.awaitAnyTermination()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 185, in deco
+    raise converted from None
+pyspark.errors.exceptions.captured.StreamingQueryException: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = 73b1f9ab-9dae-4dc7-bb65-77733303492e] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+2025-03-07 15:14:24,611 - __main__ - INFO - Spark session stopped
+2025-03-07 15:14:24,611 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 15:18:25,106 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 15:18:25,107 - __main__ - INFO - Initializing Spark session
+2025-03-07 15:18:35,708 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 15:18:36,481 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 15:18:36,905 - __main__ - INFO - Aggregating user data by country
+2025-03-07 15:18:37,054 - __main__ - INFO - Writing data to MongoDB collection: users
+2025-03-07 15:18:37,380 - __main__ - INFO - Raw data streaming to MongoDB started
+2025-03-07 15:18:37,380 - __main__ - INFO - Writing data to MongoDB collection: aggregated_data
+2025-03-07 15:18:37,417 - __main__ - INFO - Aggregated data streaming to MongoDB started
+2025-03-07 15:18:37,417 - __main__ - INFO - Writing data to Cassandra table: random_user_keyspace.user_detail
+2025-03-07 15:18:41,486 - __main__ - INFO - Aggregated data streaming to Cassandra started
+2025-03-07 15:18:42,011 - __main__ - ERROR - Streaming application failed: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = e6de9a8a-591e-4299-9ba0-17d9774550d7] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 296, in main
+    spark.streams.awaitAnyTermination()
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/streaming/query.py", line 596, in awaitAnyTermination
+    return self._jsqm.awaitAnyTermination()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 185, in deco
+    raise converted from None
+pyspark.errors.exceptions.captured.StreamingQueryException: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = e6de9a8a-591e-4299-9ba0-17d9774550d7] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+2025-03-07 15:18:42,205 - __main__ - INFO - Spark session stopped
+2025-03-07 15:18:42,206 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 15:21:02,384 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 15:21:02,384 - __main__ - INFO - Initializing Spark session
+2025-03-07 15:21:11,885 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 15:21:12,843 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 15:21:13,259 - __main__ - INFO - Aggregating user data by country
+2025-03-07 15:21:13,389 - __main__ - INFO - Writing data to MongoDB collection: users
+2025-03-07 15:21:13,744 - __main__ - INFO - Raw data streaming to MongoDB started
+2025-03-07 15:21:13,744 - __main__ - INFO - Writing data to MongoDB collection: aggregated_data
+2025-03-07 15:21:13,782 - __main__ - INFO - Aggregated data streaming to MongoDB started
+2025-03-07 15:21:13,782 - __main__ - INFO - Writing data to Cassandra table: random_user_keyspace.user_detail
+2025-03-07 15:21:18,728 - __main__ - INFO - Aggregated data streaming to Cassandra started
+2025-03-07 15:21:19,208 - __main__ - ERROR - Streaming application failed: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = ef58049a-e8ce-4dde-8f04-1c9dd3c18589] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 296, in main
+    spark.streams.awaitAnyTermination()
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/streaming/query.py", line 596, in awaitAnyTermination
+    return self._jsqm.awaitAnyTermination()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 185, in deco
+    raise converted from None
+pyspark.errors.exceptions.captured.StreamingQueryException: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = ef58049a-e8ce-4dde-8f04-1c9dd3c18589] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+2025-03-07 15:21:19,356 - __main__ - INFO - Spark session stopped
+2025-03-07 15:21:19,357 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 15:22:33,646 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 15:22:33,646 - __main__ - INFO - Initializing Spark session
+2025-03-07 15:22:42,974 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 15:22:43,755 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 15:22:44,132 - __main__ - INFO - Aggregating user data by country
+2025-03-07 15:22:44,252 - __main__ - INFO - Writing data to MongoDB collection: users
+2025-03-07 15:22:44,540 - __main__ - INFO - Raw data streaming to MongoDB started
+2025-03-07 15:22:44,540 - __main__ - INFO - Writing data to MongoDB collection: aggregated_data
+2025-03-07 15:22:44,594 - __main__ - INFO - Aggregated data streaming to MongoDB started
+2025-03-07 15:22:44,595 - __main__ - INFO - Writing data to Cassandra table: random_user_keyspace.user_detail
+2025-03-07 15:22:48,884 - __main__ - INFO - Aggregated data streaming to Cassandra started
+2025-03-07 15:22:49,607 - __main__ - ERROR - Streaming application failed: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = b5a6da1c-25ca-4c63-850d-1c48471eac5a] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 296, in main
+    spark.streams.awaitAnyTermination()
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/streaming/query.py", line 596, in awaitAnyTermination
+    return self._jsqm.awaitAnyTermination()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 185, in deco
+    raise converted from None
+pyspark.errors.exceptions.captured.StreamingQueryException: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = b5a6da1c-25ca-4c63-850d-1c48471eac5a] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+2025-03-07 15:22:50,448 - __main__ - INFO - Spark session stopped
+2025-03-07 15:22:50,449 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 15:23:34,147 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 15:23:34,147 - __main__ - INFO - Initializing Spark session
+2025-03-07 15:23:46,889 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 15:23:47,607 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 15:23:48,019 - __main__ - INFO - Aggregating user data by country
+2025-03-07 15:23:48,147 - __main__ - INFO - Writing data to MongoDB collection: users
+2025-03-07 15:23:48,484 - __main__ - INFO - Raw data streaming to MongoDB started
+2025-03-07 15:23:48,484 - __main__ - INFO - Writing data to MongoDB collection: aggregated_data
+2025-03-07 15:23:48,532 - __main__ - INFO - Aggregated data streaming to MongoDB started
+2025-03-07 15:23:48,532 - __main__ - INFO - Writing data to Cassandra table: random_user_keyspace.user_detail
+2025-03-07 15:23:52,668 - __main__ - INFO - Aggregated data streaming to Cassandra started
+2025-03-07 15:23:53,137 - __main__ - ERROR - Streaming application failed: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = 4321fb6d-b1e1-4a63-837f-cd25bce713db] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 296, in main
+    spark.streams.awaitAnyTermination()
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/streaming/query.py", line 596, in awaitAnyTermination
+    return self._jsqm.awaitAnyTermination()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 185, in deco
+    raise converted from None
+pyspark.errors.exceptions.captured.StreamingQueryException: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = 4321fb6d-b1e1-4a63-837f-cd25bce713db] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+2025-03-07 15:23:53,355 - __main__ - INFO - Spark session stopped
+2025-03-07 15:23:53,356 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 15:26:22,245 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 15:26:22,245 - __main__ - INFO - Initializing Spark session
+2025-03-07 15:26:30,902 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 15:26:31,721 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 15:26:32,159 - __main__ - INFO - Aggregating user data by country
+2025-03-07 15:26:32,305 - __main__ - INFO - Writing data to MongoDB collection: users
+2025-03-07 15:26:32,594 - __main__ - INFO - Raw data streaming to MongoDB started
+2025-03-07 15:26:32,594 - __main__ - INFO - Writing data to MongoDB collection: aggregated_data
+2025-03-07 15:26:32,633 - __main__ - INFO - Aggregated data streaming to MongoDB started
+2025-03-07 15:26:32,636 - __main__ - INFO - Writing data to Cassandra table: random_user_keyspace.user_detail
+2025-03-07 15:26:37,757 - __main__ - INFO - Aggregated data streaming to Cassandra started
+2025-03-07 15:26:38,192 - __main__ - ERROR - Streaming application failed: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = 775acd9d-3415-4b5f-b2ba-fa2a767e51fa] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 296, in main
+    spark.streams.awaitAnyTermination()
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/streaming/query.py", line 596, in awaitAnyTermination
+    return self._jsqm.awaitAnyTermination()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 185, in deco
+    raise converted from None
+pyspark.errors.exceptions.captured.StreamingQueryException: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = 775acd9d-3415-4b5f-b2ba-fa2a767e51fa] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+2025-03-07 15:26:38,431 - __main__ - INFO - Spark session stopped
+2025-03-07 15:26:38,433 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 15:28:44,826 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 15:28:44,826 - __main__ - INFO - Initializing Spark session
+2025-03-07 15:28:54,815 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 15:28:55,541 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 15:28:55,901 - __main__ - INFO - Aggregating user data by country
+2025-03-07 15:28:56,048 - __main__ - INFO - Writing data to MongoDB collection: users
+2025-03-07 15:28:56,344 - __main__ - INFO - Raw data streaming to MongoDB started
+2025-03-07 15:28:56,344 - __main__ - INFO - Writing data to MongoDB collection: aggregated_data
+2025-03-07 15:28:56,392 - __main__ - INFO - Aggregated data streaming to MongoDB started
+2025-03-07 15:28:56,392 - __main__ - INFO - Writing data to Cassandra table: random_user_keyspace.user_detail
+2025-03-07 15:29:00,456 - __main__ - INFO - Aggregated data streaming to Cassandra started
+2025-03-07 15:29:00,938 - __main__ - ERROR - Streaming application failed: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = 31ce7976-fe49-43f6-831f-3c977707a9df] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 296, in main
+    spark.streams.awaitAnyTermination()
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/streaming/query.py", line 596, in awaitAnyTermination
+    return self._jsqm.awaitAnyTermination()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 185, in deco
+    raise converted from None
+pyspark.errors.exceptions.captured.StreamingQueryException: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = 31ce7976-fe49-43f6-831f-3c977707a9df] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+2025-03-07 15:29:01,133 - __main__ - INFO - Spark session stopped
+2025-03-07 15:29:01,134 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 15:30:02,633 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 15:30:02,633 - __main__ - INFO - Initializing Spark session
+2025-03-07 15:30:11,808 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 15:30:12,689 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 15:30:13,074 - __main__ - INFO - Aggregating user data by country
+2025-03-07 15:30:13,238 - __main__ - INFO - Writing data to MongoDB collection: users
+2025-03-07 15:30:13,571 - __main__ - INFO - Raw data streaming to MongoDB started
+2025-03-07 15:30:13,571 - __main__ - INFO - Writing data to MongoDB collection: aggregated_data
+2025-03-07 15:30:13,609 - __main__ - INFO - Aggregated data streaming to MongoDB started
+2025-03-07 15:30:13,609 - __main__ - INFO - Writing data to Cassandra table: random_user_keyspace.user_detail
+2025-03-07 15:30:18,015 - __main__ - INFO - Aggregated data streaming to Cassandra started
+2025-03-07 15:30:18,568 - __main__ - ERROR - Streaming application failed: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = eefcb158-8b36-4b70-8874-ddf6fe518085] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 296, in main
+    spark.streams.awaitAnyTermination()
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/streaming/query.py", line 596, in awaitAnyTermination
+    return self._jsqm.awaitAnyTermination()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 185, in deco
+    raise converted from None
+pyspark.errors.exceptions.captured.StreamingQueryException: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = eefcb158-8b36-4b70-8874-ddf6fe518085] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+2025-03-07 15:30:18,846 - __main__ - INFO - Spark session stopped
+2025-03-07 15:30:18,847 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 15:30:45,994 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 15:30:45,995 - __main__ - INFO - Initializing Spark session
+2025-03-07 15:30:55,741 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 15:30:56,484 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 15:30:56,876 - __main__ - INFO - Aggregating user data by country
+2025-03-07 15:30:57,007 - __main__ - INFO - Writing data to MongoDB collection: users
+2025-03-07 15:30:57,283 - __main__ - INFO - Raw data streaming to MongoDB started
+2025-03-07 15:30:57,284 - __main__ - INFO - Writing data to MongoDB collection: aggregated_data
+2025-03-07 15:30:57,328 - __main__ - INFO - Aggregated data streaming to MongoDB started
+2025-03-07 15:30:57,328 - __main__ - INFO - Writing data to Cassandra table: random_user_keyspace.user_detail
+2025-03-07 15:31:01,903 - __main__ - INFO - Aggregated data streaming to Cassandra started
+2025-03-07 15:31:02,411 - __main__ - ERROR - Streaming application failed: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = 53764cda-8379-479b-94e5-1abdec271370] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 296, in main
+    spark.streams.awaitAnyTermination()
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/streaming/query.py", line 596, in awaitAnyTermination
+    return self._jsqm.awaitAnyTermination()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 185, in deco
+    raise converted from None
+pyspark.errors.exceptions.captured.StreamingQueryException: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = 53764cda-8379-479b-94e5-1abdec271370] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+2025-03-07 15:31:02,715 - __main__ - INFO - Spark session stopped
+2025-03-07 15:31:02,716 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 15:37:32,778 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 15:37:32,778 - __main__ - INFO - Initializing Spark session
+2025-03-07 15:37:41,302 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 15:37:42,016 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 15:37:42,386 - __main__ - INFO - Aggregating user data by country
+2025-03-07 15:37:42,386 - __main__ - ERROR - Streaming application failed: 'module' object is not callable
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 256, in main
+    aggregated_df = aggregate_user_data(parsed_df)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 127, in aggregate_user_data
+    .withColumn("id", uuid())\
+                      ^^^^^^
+TypeError: 'module' object is not callable
+2025-03-07 15:37:42,700 - __main__ - INFO - Spark session stopped
+2025-03-07 15:37:42,701 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 15:38:20,091 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 15:38:20,091 - __main__ - INFO - Initializing Spark session
+2025-03-07 15:38:34,408 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 15:38:35,136 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 15:38:35,515 - __main__ - INFO - Aggregating user data by country
+2025-03-07 15:38:35,515 - __main__ - ERROR - Streaming application failed: 'module' object is not callable
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 256, in main
+    aggregated_df = aggregate_user_data(parsed_df)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 127, in aggregate_user_data
+    .withColumn("id", uuid())\
+                      ^^^^^^
+TypeError: 'module' object is not callable
+2025-03-07 15:38:36,024 - __main__ - INFO - Spark session stopped
+2025-03-07 15:38:36,025 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 15:53:39,785 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 15:53:39,785 - __main__ - INFO - Initializing Spark session
+2025-03-07 15:53:49,295 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 15:53:50,048 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 15:53:50,379 - __main__ - INFO - Aggregating user data by country
+2025-03-07 15:53:50,485 - __main__ - INFO - Writing data to MongoDB collection: users
+2025-03-07 15:53:50,809 - __main__ - INFO - Raw data streaming to MongoDB started
+2025-03-07 15:53:50,809 - __main__ - INFO - Writing data to MongoDB collection: aggregated_data
+2025-03-07 15:53:50,849 - __main__ - INFO - Aggregated data streaming to MongoDB started
+2025-03-07 15:53:50,849 - __main__ - INFO - Writing data to Cassandra table: random_user_keyspace.user_detail
+2025-03-07 15:53:55,081 - __main__ - INFO - Aggregated data streaming to Cassandra started
+2025-03-07 15:53:55,525 - __main__ - ERROR - Streaming application failed: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = b4bf8edf-68b0-464e-b559-7a2e8ad40a89] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 296, in main
+    spark.streams.awaitAnyTermination()
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/streaming/query.py", line 596, in awaitAnyTermination
+    return self._jsqm.awaitAnyTermination()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 185, in deco
+    raise converted from None
+pyspark.errors.exceptions.captured.StreamingQueryException: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = b4bf8edf-68b0-464e-b559-7a2e8ad40a89] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+2025-03-07 15:53:55,897 - __main__ - INFO - Spark session stopped
+2025-03-07 15:53:55,897 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 15:58:52,956 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 15:58:52,956 - __main__ - INFO - Initializing Spark session
+2025-03-07 15:59:02,154 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 15:59:03,129 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 15:59:03,472 - __main__ - INFO - Aggregating user data by country
+2025-03-07 15:59:03,473 - __main__ - ERROR - Streaming application failed: DataFrame.withColumn() missing 1 required positional argument: 'col'
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 256, in main
+    aggregated_df = aggregate_user_data(parsed_df)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 127, in aggregate_user_data
+    .withColumn("id")\
+     ^^^^^^^^^^^^^^^^
+TypeError: DataFrame.withColumn() missing 1 required positional argument: 'col'
+2025-03-07 15:59:03,978 - __main__ - INFO - Spark session stopped
+2025-03-07 15:59:03,979 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 15:59:41,489 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 15:59:41,489 - __main__ - INFO - Initializing Spark session
+2025-03-07 15:59:56,473 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 15:59:57,244 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 15:59:57,699 - __main__ - INFO - Aggregating user data by country
+2025-03-07 15:59:57,699 - __main__ - ERROR - Streaming application failed: DataFrame.withColumn() missing 1 required positional argument: 'col'
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 256, in main
+    aggregated_df = aggregate_user_data(parsed_df)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 127, in aggregate_user_data
+    .withColumn("id")\
+     ^^^^^^^^^^^^^^^^
+TypeError: DataFrame.withColumn() missing 1 required positional argument: 'col'
+2025-03-07 15:59:57,943 - __main__ - INFO - Spark session stopped
+2025-03-07 15:59:57,944 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 16:40:36,961 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 16:40:36,961 - __main__ - INFO - Initializing Spark session
+2025-03-07 16:40:50,993 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 16:40:51,734 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 16:40:52,044 - __main__ - INFO - Aggregating user data by country
+2025-03-07 16:40:52,166 - __main__ - INFO - Writing data to MongoDB collection: users
+2025-03-07 16:40:52,451 - __main__ - INFO - Raw data streaming to MongoDB started
+2025-03-07 16:40:52,451 - __main__ - INFO - Writing data to MongoDB collection: aggregated_data
+2025-03-07 16:40:52,495 - __main__ - INFO - Aggregated data streaming to MongoDB started
+2025-03-07 16:40:52,496 - __main__ - INFO - Writing data to Cassandra table: random_user_keyspace.user_detail
+2025-03-07 16:40:55,712 - __main__ - INFO - Aggregated data streaming to Cassandra started
+2025-03-07 16:40:56,084 - __main__ - ERROR - Streaming application failed: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = d80fb6bb-c396-4aa0-89e6-a70e02662e19] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 296, in main
+    spark.streams.awaitAnyTermination()
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/streaming/query.py", line 596, in awaitAnyTermination
+    return self._jsqm.awaitAnyTermination()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 185, in deco
+    raise converted from None
+pyspark.errors.exceptions.captured.StreamingQueryException: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = d80fb6bb-c396-4aa0-89e6-a70e02662e19] terminated with exception: Attempting to write to C* Table but missing
+primary key columns: [id]
+2025-03-07 16:40:56,524 - __main__ - INFO - Spark session stopped
+2025-03-07 16:40:56,524 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 16:41:57,936 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 16:41:57,937 - __main__ - INFO - Initializing Spark session
+2025-03-07 16:42:12,220 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 16:42:12,955 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 16:42:13,327 - __main__ - INFO - Aggregating user data by country
+2025-03-07 16:42:13,434 - __main__ - INFO - Writing data to MongoDB collection: users
+2025-03-07 16:42:13,712 - __main__ - INFO - Raw data streaming to MongoDB started
+2025-03-07 16:42:13,712 - __main__ - INFO - Writing data to MongoDB collection: aggregated_data
+2025-03-07 16:42:13,747 - __main__ - INFO - Aggregated data streaming to MongoDB started
+2025-03-07 16:42:13,747 - __main__ - INFO - Writing detailed user data to Cassandra table: random_user_keyspace.user_detail
+2025-03-07 16:42:13,786 - __main__ - ERROR - Streaming application failed: 'module' object is not callable
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 279, in main
+    detail_cassandra_query = write_detailed_data_to_cassandra(
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 227, in write_detailed_data_to_cassandra
+    uuid().alias("id")
+    ^^^^^^
+TypeError: 'module' object is not callable
+2025-03-07 16:42:14,154 - __main__ - INFO - Spark session stopped
+2025-03-07 16:42:14,155 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 16:42:20,830 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 16:42:20,831 - __main__ - INFO - Initializing Spark session
+2025-03-07 16:42:34,823 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 16:42:35,548 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 16:42:35,894 - __main__ - INFO - Aggregating user data by country
+2025-03-07 16:42:36,047 - __main__ - INFO - Writing data to MongoDB collection: users
+2025-03-07 16:42:36,347 - __main__ - INFO - Raw data streaming to MongoDB started
+2025-03-07 16:42:36,347 - __main__ - INFO - Writing data to MongoDB collection: aggregated_data
+2025-03-07 16:42:36,429 - __main__ - INFO - Aggregated data streaming to MongoDB started
+2025-03-07 16:42:36,429 - __main__ - INFO - Writing detailed user data to Cassandra table: random_user_keyspace.user_detail
+2025-03-07 16:42:36,482 - __main__ - ERROR - Streaming application failed: 'module' object is not callable
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 279, in main
+    detail_cassandra_query = write_detailed_data_to_cassandra(
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 227, in write_detailed_data_to_cassandra
+    uuid().alias("id")
+    ^^^^^^
+TypeError: 'module' object is not callable
+2025-03-07 16:42:36,748 - __main__ - INFO - Spark session stopped
+2025-03-07 16:42:36,748 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 16:45:39,654 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 16:45:39,654 - __main__ - INFO - Initializing Spark session
+2025-03-07 16:45:53,376 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 16:45:54,052 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 16:45:54,348 - __main__ - INFO - Aggregating user data by country
+2025-03-07 16:45:54,448 - __main__ - INFO - Writing data to MongoDB collection: users
+2025-03-07 16:45:54,710 - __main__ - INFO - Raw data streaming to MongoDB started
+2025-03-07 16:45:54,710 - __main__ - INFO - Writing data to MongoDB collection: aggregated_data
+2025-03-07 16:45:54,745 - __main__ - INFO - Aggregated data streaming to MongoDB started
+2025-03-07 16:45:54,745 - __main__ - INFO - Writing detailed user data to Cassandra table: random_user_keyspace.user_detail
+2025-03-07 16:45:54,786 - __main__ - ERROR - Streaming application failed: 'module' object is not callable
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 279, in main
+    detail_cassandra_query = write_detailed_data_to_cassandra(
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 227, in write_detailed_data_to_cassandra
+    uuid().alias("id")
+    ^^^^^^
+TypeError: 'module' object is not callable
+2025-03-07 16:45:54,954 - __main__ - INFO - Spark session stopped
+2025-03-07 16:45:54,955 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 16:49:17,098 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 16:49:17,098 - __main__ - INFO - Initializing Spark session
+2025-03-07 16:49:31,463 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 16:49:32,163 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 16:49:32,464 - __main__ - INFO - Aggregating user data by country
+2025-03-07 16:49:32,562 - __main__ - INFO - Writing data to MongoDB collection: users
+2025-03-07 16:49:32,817 - __main__ - INFO - Raw data streaming to MongoDB started
+2025-03-07 16:49:32,817 - __main__ - INFO - Writing data to MongoDB collection: aggregated_data
+2025-03-07 16:49:32,853 - __main__ - INFO - Aggregated data streaming to MongoDB started
+2025-03-07 16:49:32,853 - __main__ - INFO - Writing detailed user data to Cassandra table: random_user_keyspace.user_detail
+2025-03-07 16:49:37,170 - __main__ - INFO - Detailed data streaming to Cassandra started
+2025-03-07 16:55:14,799 - py4j.clientserver - INFO - Error while receiving.
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: reentrant call inside <_io.BufferedReader name=4>
+2025-03-07 16:55:14,803 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 16:55:14,803 - root - ERROR - Exception while sending command.
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: reentrant call inside <_io.BufferedReader name=4>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1038, in send_command
+    response = connection.send_command(command)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/clientserver.py", line 539, in send_command
+    raise Py4JNetworkError(
+py4j.protocol.Py4JNetworkError: Error while sending or receiving
+2025-03-07 16:55:14,806 - py4j.clientserver - INFO - Error while receiving.
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socket.py", line 707, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/context.py", line 381, in signal_handler
+    self.cancelAllJobs()
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/context.py", line 2446, in cancelAllJobs
+    self._jsc.sc().cancelAllJobs()
+    ^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 179, in deco
+    return f(*a, **kw)
+           ^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/protocol.py", line 334, in get_return_value
+    raise Py4JError(
+py4j.protocol.Py4JError: An error occurred while calling o28.sc
+2025-03-07 16:55:14,810 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 16:55:14,811 - root - ERROR - Exception while sending command.
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socket.py", line 707, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/context.py", line 381, in signal_handler
+    self.cancelAllJobs()
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/context.py", line 2446, in cancelAllJobs
+    self._jsc.sc().cancelAllJobs()
+    ^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 179, in deco
+    return f(*a, **kw)
+           ^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/protocol.py", line 334, in get_return_value
+    raise Py4JError(
+py4j.protocol.Py4JError: An error occurred while calling o28.sc
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1038, in send_command
+    response = connection.send_command(command)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/clientserver.py", line 539, in send_command
+    raise Py4JNetworkError(
+py4j.protocol.Py4JNetworkError: Error while sending or receiving
+2025-03-07 16:55:14,812 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 16:55:14,813 - __main__ - ERROR - Streaming application failed: An error occurred while calling o138.awaitAnyTermination
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 296, in main
+    spark.streams.awaitAnyTermination()
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/streaming/query.py", line 596, in awaitAnyTermination
+    return self._jsqm.awaitAnyTermination()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 179, in deco
+    return f(*a, **kw)
+           ^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/protocol.py", line 334, in get_return_value
+    raise Py4JError(
+py4j.protocol.Py4JError: An error occurred while calling o138.awaitAnyTermination
+2025-03-07 16:55:14,940 - __main__ - INFO - Spark session stopped
+2025-03-07 16:55:14,943 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 17:03:23,288 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 17:03:23,288 - __main__ - INFO - Initializing Spark session
+2025-03-07 17:03:38,087 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 17:03:38,795 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 17:03:39,120 - __main__ - INFO - Aggregating user data by country
+2025-03-07 17:03:39,242 - __main__ - INFO - Writing data to MongoDB collection: users
+2025-03-07 17:03:39,514 - __main__ - INFO - Raw data streaming to MongoDB started
+2025-03-07 17:03:39,515 - __main__ - INFO - Writing data to MongoDB collection: aggregated_data
+2025-03-07 17:03:39,556 - __main__ - INFO - Aggregated data streaming to MongoDB started
+2025-03-07 17:03:39,556 - __main__ - INFO - Writing data to Cassandra table: random_user_keyspace.cassandra_aggregated
+2025-03-07 17:03:43,123 - __main__ - ERROR - Streaming application failed: Couldn't find random_user_keyspace.cassandra_aggregated or any similarly named keyspace and table pairs
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 287, in main
+    agg_cassandra_query = write_to_cassandra(
+                          ^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 187, in write_to_cassandra
+    .start()
+     ^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/streaming/readwriter.py", line 1527, in start
+    return self._sq(self._jwrite.start())
+                    ^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 185, in deco
+    raise converted from None
+pyspark.errors.exceptions.captured.AnalysisException: Couldn't find random_user_keyspace.cassandra_aggregated or any similarly named keyspace and table pairs
+2025-03-07 17:03:43,496 - __main__ - INFO - Spark session stopped
+2025-03-07 17:03:43,497 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 17:20:06,634 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 17:20:06,634 - __main__ - INFO - Initializing Spark session
+2025-03-07 17:20:21,008 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 17:20:21,861 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 17:20:22,173 - __main__ - INFO - Aggregating user data by country
+2025-03-07 17:20:22,280 - __main__ - ERROR - Streaming application failed: cassandra_log() missing 2 required positional arguments: 'conf' and 'checkpoint_key'
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 270, in main
+    cassandra_log_Data=cassandra_log(parsed_df,)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: cassandra_log() missing 2 required positional arguments: 'conf' and 'checkpoint_key'
+2025-03-07 17:20:22,490 - __main__ - INFO - Spark session stopped
+2025-03-07 17:20:22,491 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 17:27:55,801 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 17:27:55,801 - __main__ - INFO - Initializing Spark session
+2025-03-07 17:28:10,319 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 17:28:10,982 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 17:28:11,293 - __main__ - INFO - Aggregating user data by country
+2025-03-07 17:28:12,648 - __main__ - ERROR - Streaming application failed: Queries with streaming sources must be executed with writeStream.start();
+kafka
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 265, in main
+    aggregated_df.show()
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/dataframe.py", line 947, in show
+    print(self._show_string(n, truncate, vertical))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/dataframe.py", line 965, in _show_string
+    return self._jdf.showString(n, 20, vertical)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 185, in deco
+    raise converted from None
+pyspark.errors.exceptions.captured.AnalysisException: Queries with streaming sources must be executed with writeStream.start();
+kafka
+2025-03-07 17:28:12,911 - __main__ - INFO - Spark session stopped
+2025-03-07 17:28:12,911 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 17:30:03,545 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 17:30:03,545 - __main__ - INFO - Initializing Spark session
+2025-03-07 17:30:17,867 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 17:30:18,776 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 17:30:19,074 - __main__ - INFO - Aggregating user data by country
+2025-03-07 17:30:20,116 - __main__ - ERROR - Streaming application failed: Queries with streaming sources must be executed with writeStream.start();
+kafka
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 265, in main
+    aggregated_df.show()
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/dataframe.py", line 947, in show
+    print(self._show_string(n, truncate, vertical))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/dataframe.py", line 965, in _show_string
+    return self._jdf.showString(n, 20, vertical)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 185, in deco
+    raise converted from None
+pyspark.errors.exceptions.captured.AnalysisException: Queries with streaming sources must be executed with writeStream.start();
+kafka
+2025-03-07 17:30:20,641 - __main__ - INFO - Spark session stopped
+2025-03-07 17:30:20,642 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 17:30:27,637 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 17:30:27,637 - __main__ - INFO - Initializing Spark session
+2025-03-07 17:30:40,726 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 17:30:41,534 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 17:30:41,909 - __main__ - INFO - Aggregating user data by country
+2025-03-07 17:30:43,117 - __main__ - ERROR - Streaming application failed: Queries with streaming sources must be executed with writeStream.start();
+kafka
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 265, in main
+    aggregated_df.show()
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/dataframe.py", line 947, in show
+    print(self._show_string(n, truncate, vertical))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/dataframe.py", line 965, in _show_string
+    return self._jdf.showString(n, 20, vertical)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 185, in deco
+    raise converted from None
+pyspark.errors.exceptions.captured.AnalysisException: Queries with streaming sources must be executed with writeStream.start();
+kafka
+2025-03-07 17:30:43,295 - __main__ - INFO - Spark session stopped
+2025-03-07 17:30:43,295 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 17:32:40,695 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 17:32:40,695 - __main__ - INFO - Initializing Spark session
+2025-03-07 17:32:54,294 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 17:32:54,980 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 17:32:55,286 - __main__ - INFO - Aggregating user data by country
+2025-03-07 17:32:55,394 - __main__ - INFO - Writing data to Cassandra table: random_user_keyspace.cassandra_aggregated
+2025-03-07 17:32:58,186 - __main__ - INFO - Aggregated data streaming to Cassandra started
+2025-03-07 17:32:59,133 - __main__ - ERROR - Streaming application failed: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = 31b98327-e866-47e8-a658-6977d242bcc2] terminated with exception: You are attempting to use overwrite mode which will truncate
+this table prior to inserting data. If you would merely like
+to change data already in the table use the "Append" mode.
+To actually truncate please pass in true value to the option
+"confirm.truncate" or set that value to true in the session.conf
+ when saving. 
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 276, in main
+    spark.streams.awaitAnyTermination()
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/streaming/query.py", line 596, in awaitAnyTermination
+    return self._jsqm.awaitAnyTermination()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 185, in deco
+    raise converted from None
+pyspark.errors.exceptions.captured.StreamingQueryException: [STREAM_FAILED] Query [id = a5c95a76-31fe-4400-80bc-848a733ede5a, runId = 31b98327-e866-47e8-a658-6977d242bcc2] terminated with exception: You are attempting to use overwrite mode which will truncate
+this table prior to inserting data. If you would merely like
+to change data already in the table use the "Append" mode.
+To actually truncate please pass in true value to the option
+"confirm.truncate" or set that value to true in the session.conf
+ when saving. 
+2025-03-07 17:32:59,345 - __main__ - INFO - Spark session stopped
+2025-03-07 17:32:59,345 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 17:42:21,853 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 17:42:21,853 - __main__ - INFO - Initializing Spark session
+2025-03-07 17:42:41,829 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 17:42:43,470 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 17:42:44,140 - __main__ - INFO - Aggregating user data by country
+2025-03-07 17:42:44,374 - __main__ - INFO - Writing data to Cassandra table: random_user_keyspace.cassandra_aggregated
+2025-03-07 17:42:50,923 - __main__ - ERROR - Streaming application failed: Append output mode not supported when there are streaming aggregations on streaming DataFrames/DataSets without watermark;
+Sort [user_count#55L DESC NULLS LAST], true
++- Aggregate [location#29.country], [location#29.country AS country#59, count(1) AS user_count#55L, avg(dob#30.age) AS avg_age#57]
+   +- Project [userData#25.gender AS gender#27, userData#25.name AS name#28, userData#25.location AS location#29, userData#25.dob AS dob#30, userData#25.email AS email#31, userData#25.login AS login#32, userData#25.phone AS phone#33, userData#25.registered AS registered#34, userData#25.coordinates AS coordinates#35]
+      +- Project [from_json(StructField(gender,StringType,true), StructField(name,StructType(StructField(title,StringType,true),StructField(first,StringType,true),StructField(last,StringType,true)),true), StructField(location,StructType(StructField(street,StructType(StructField(number,IntegerType,true),StructField(name,StringType,true)),true),StructField(city,StringType,true),StructField(country,StringType,true)),true), StructField(dob,StructType(StructField(age,IntegerType,true)),true), StructField(email,StringType,true), StructField(login,StructType(StructField(username,StringType,true),StructField(password,StringType,true)),true), StructField(phone,IntegerType,true), StructField(registered,StructType(StructField(date,StringType,true),StructField(age,IntegerType,true)),true), StructField(coordinates,StructType(StructField(latitude,DoubleType,true),StructField(longitude,DoubleType,true)),true), value#22, Some(Africa/Casablanca)) AS userData#25]
+         +- Project [cast(key#7 as string) AS key#21, cast(value#8 as string) AS value#22]
+            +- StreamingRelationV2 org.apache.spark.sql.kafka010.KafkaSourceProvider@463df790, kafka, org.apache.spark.sql.kafka010.KafkaSourceProvider$KafkaTable@661daae4, [startingOffsets=earliest, kafka.bootstrap.servers=localhost:9092, subscribe=users], [key#7, value#8, topic#9, partition#10, offset#11L, timestamp#12, timestampType#13], StreamingRelation DataSource(org.apache.spark.sql.SparkSession@1c330c17,kafka,List(),None,List(),None,Map(kafka.bootstrap.servers -> localhost:9092, subscribe -> users, startingOffsets -> earliest),None), kafka, [key#0, value#1, topic#2, partition#3, offset#4L, timestamp#5, timestampType#6]
+Traceback (most recent call last):
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 267, in main
+    agg_cassandra_query = write_to_cassandra(
+                          ^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/userManagement/pyspark/src/spark_consumer.py", line 187, in write_to_cassandra
+    .start()
+     ^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/sql/streaming/readwriter.py", line 1527, in start
+    return self._sq(self._jwrite.start())
+                    ^^^^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/py4j/java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/usmail/Desktop/users_managements/kafkaENV/lib/python3.12/site-packages/pyspark/errors/exceptions/captured.py", line 185, in deco
+    raise converted from None
+pyspark.errors.exceptions.captured.AnalysisException: Append output mode not supported when there are streaming aggregations on streaming DataFrames/DataSets without watermark;
+Sort [user_count#55L DESC NULLS LAST], true
++- Aggregate [location#29.country], [location#29.country AS country#59, count(1) AS user_count#55L, avg(dob#30.age) AS avg_age#57]
+   +- Project [userData#25.gender AS gender#27, userData#25.name AS name#28, userData#25.location AS location#29, userData#25.dob AS dob#30, userData#25.email AS email#31, userData#25.login AS login#32, userData#25.phone AS phone#33, userData#25.registered AS registered#34, userData#25.coordinates AS coordinates#35]
+      +- Project [from_json(StructField(gender,StringType,true), StructField(name,StructType(StructField(title,StringType,true),StructField(first,StringType,true),StructField(last,StringType,true)),true), StructField(location,StructType(StructField(street,StructType(StructField(number,IntegerType,true),StructField(name,StringType,true)),true),StructField(city,StringType,true),StructField(country,StringType,true)),true), StructField(dob,StructType(StructField(age,IntegerType,true)),true), StructField(email,StringType,true), StructField(login,StructType(StructField(username,StringType,true),StructField(password,StringType,true)),true), StructField(phone,IntegerType,true), StructField(registered,StructType(StructField(date,StringType,true),StructField(age,IntegerType,true)),true), StructField(coordinates,StructType(StructField(latitude,DoubleType,true),StructField(longitude,DoubleType,true)),true), value#22, Some(Africa/Casablanca)) AS userData#25]
+         +- Project [cast(key#7 as string) AS key#21, cast(value#8 as string) AS value#22]
+            +- StreamingRelationV2 org.apache.spark.sql.kafka010.KafkaSourceProvider@463df790, kafka, org.apache.spark.sql.kafka010.KafkaSourceProvider$KafkaTable@661daae4, [startingOffsets=earliest, kafka.bootstrap.servers=localhost:9092, subscribe=users], [key#7, value#8, topic#9, partition#10, offset#11L, timestamp#12, timestampType#13], StreamingRelation DataSource(org.apache.spark.sql.SparkSession@1c330c17,kafka,List(),None,List(),None,Map(kafka.bootstrap.servers -> localhost:9092, subscribe -> users, startingOffsets -> earliest),None), kafka, [key#0, value#1, topic#2, partition#3, offset#4L, timestamp#5, timestampType#6]
+
+2025-03-07 17:42:51,109 - __main__ - INFO - Spark session stopped
+2025-03-07 17:42:51,109 - py4j.clientserver - INFO - Closing down clientserver connection
+2025-03-07 17:45:40,756 - __main__ - INFO - Starting Kafka-to-MongoDB/Cassandra streaming application
+2025-03-07 17:45:40,757 - __main__ - INFO - Initializing Spark session
+2025-03-07 17:46:03,918 - __main__ - INFO - Reading data from Kafka topic: users
+2025-03-07 17:46:05,470 - __main__ - INFO - Parsing Kafka messages
+2025-03-07 17:46:06,192 - __main__ - INFO - Aggregating user data by country
+2025-03-07 17:46:06,432 - __main__ - INFO - Writing data to Cassandra table: random_user_keyspace.cassandra_aggregated
+2025-03-07 17:46:11,609 - __main__ - INFO - Aggregated data streaming to Cassandra started

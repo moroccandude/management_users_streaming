@@ -76,7 +76,6 @@ services:
       - "-c"
       - "/opt/spark/sbin/start-master.sh && tail -f /dev/null"
     volumes:
-      # - ./data:/opt/spark/work-dir/spark-warehouse/data:rw
        - ./spark-events:/opt/spark-events:rw
        - ~/.ivy2:/root/.ivy2:rw
     depends_on:
@@ -84,22 +83,6 @@ services:
     networks:
       - global_ner 
 
-  # spark-connect:
-  #   image: apache/spark:3.5.1
-  #   container_name: spark-connect
-  #   hostname: spark-connect
-  #   ports:
-  #     - "4040:4040"
-  #     - "15002:15002"
-  #   depends_on:
-  #     - spark-master
-  #   volumes:
-  #     - ./jars/spark-connect_2.12-3.5.1.jar:/opt/spark/jars/spark-connect_2.12-3.5.1.jar
-  #     - ./data:/opt/spark/work-dir/spark-warehouse/data:rw
-  #   command: 
-  #     - "bash"
-  #     - "-c"
-  #     - "/opt/spark/sbin/start-connect-server.sh --jars /opt/spark/jars/spark-connect_2.12-3.5.1.jar && tail -f /dev/null"
 
   spark-worker:
     image: apache/spark:3.5.1
@@ -118,41 +101,33 @@ services:
       - SPARK_WORKER_CORES=4
       - SPARK_WORKER_MEMORY=4g
       - SPARK_LOCAL_IP=0.0.0.0
-  producer:
-    build: ./producer
-    container_name: producer
-    depends_on:
-      - kafka1
-    environment:
-      KAFKA_BROKER: kafka:9092
-    volumes:
-      - ./producer:/app
-    command: ["python", "app.py"]
-  
-  # consumer:
-  #   build: ./consumer
-  #   container_name: consumer
+    networks:
+      - global_ner 
+
+  # producer:
+  #   build: ./producer
+  #   container_name: producer
   #   depends_on:
   #     - kafka1
   #   environment:
   #     KAFKA_BROKER: kafka:9092
   #   volumes:
-  #     - ./consumer:/app
-  #   command: ["python", "app.py"]  
-
-  # streamlit:
-  #   build: 
-  #    context: ./dashboard
-  #    dockerfile: dockerfile
-  #   container_name: streamlit_dashboard
-  #   depends_on:
-  #     - mongodb
-  #     - cassandra
-  #   ports:
-  #     - "8501:8501"
-  #   volumes:
-  #     - ./dashboard:/app
-  #   command: ["streamlit", "run", "app.py"]
+  #     - ./producer:/app
+  #   command: ["python", "app.py"]
+  
+  streamlit:
+    build: 
+     context: ./dashboard
+     dockerfile: dockerfile
+    container_name: streamlit_dashboard
+    depends_on:
+      - mongodb
+      - cassandra
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./dashboard:/app
+    command: ["streamlit", "run", "app.py"]
 
 volumes:
   mongo_data:

@@ -1,0 +1,5 @@
+pyspark==3.4.0
+pymongo==4.5.0
+pyyaml==6.0.1
+cassandra-driver==3.25.0
+kafka-python==2.0.2
